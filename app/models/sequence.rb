@@ -1,7 +1,8 @@
 class Sequence < ApplicationRecord
   belongs_to :frame
 
-  has_and_belongs_to_many :throws
+  has_many :sequences_throws
+  has_many :throws, through: :sequences_throws
 
   enum status: { opened: 0, finished: 1 }
 

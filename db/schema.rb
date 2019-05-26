@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 20190526192315) do
     t.index ["frame_id"], name: "index_sequences_on_frame_id", using: :btree
   end
 
+  create_table "sequences_throws", force: :cascade do |t|
+    t.integer  "throw_id"
+    t.integer  "sequence_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["sequence_id"], name: "index_sequences_throws_on_sequence_id", using: :btree
+    t.index ["throw_id"], name: "index_sequences_throws_on_throw_id", using: :btree
+  end
+
   create_table "throws", force: :cascade do |t|
     t.integer  "score",          default: 0, null: false
     t.string   "presentation"
@@ -56,15 +65,6 @@ ActiveRecord::Schema.define(version: 20190526192315) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["frame_id"], name: "index_throws_on_frame_id", using: :btree
-  end
-
-  create_table "throws_sequences", force: :cascade do |t|
-    t.integer  "throw_id"
-    t.integer  "sequence_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["sequence_id"], name: "index_throws_sequences_on_sequence_id", using: :btree
-    t.index ["throw_id"], name: "index_throws_sequences_on_throw_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20190526192315) do
   add_foreign_key "frames", "users"
   add_foreign_key "scores", "frames"
   add_foreign_key "sequences", "frames"
+  add_foreign_key "sequences_throws", "sequences"
+  add_foreign_key "sequences_throws", "throws"
   add_foreign_key "throws", "frames"
-  add_foreign_key "throws_sequences", "sequences"
-  add_foreign_key "throws_sequences", "throws"
 end
