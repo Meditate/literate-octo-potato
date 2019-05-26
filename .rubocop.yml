@@ -1,0 +1,40 @@
+require: rubocop-rspec
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - bin/*
+    - Rakefile
+    - Gemfile
+    - config/**/*
+    - db/**/*
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb
+
+  TargetRubyVersion: 2.3
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Lint/UnneededDisable:
+  Enabled: false
+
+TrailingCommaInLiteral:
+  Enabled: false
+
+TrailingCommaInArguments:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+StringLiterals:
+  Enabled: false
+
+AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
