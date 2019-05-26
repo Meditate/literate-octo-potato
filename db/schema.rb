@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190526174439) do
+ActiveRecord::Schema.define(version: 20190526175312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 20190526174439) do
     t.index ["frame_id"], name: "index_throws_on_frame_id", using: :btree
   end
 
+  create_table "throws_sequences", force: :cascade do |t|
+    t.integer  "throw_id"
+    t.integer  "sequence_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["sequence_id"], name: "index_throws_sequences_on_sequence_id", using: :btree
+    t.index ["throw_id"], name: "index_throws_sequences_on_throw_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "api_key",    null: false
     t.datetime "created_at", null: false
@@ -52,4 +61,6 @@ ActiveRecord::Schema.define(version: 20190526174439) do
   add_foreign_key "frames", "users"
   add_foreign_key "sequences", "frames"
   add_foreign_key "throws", "frames"
+  add_foreign_key "throws_sequences", "sequences"
+  add_foreign_key "throws_sequences", "throws"
 end
