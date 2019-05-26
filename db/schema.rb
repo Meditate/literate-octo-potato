@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190526181428) do
+ActiveRecord::Schema.define(version: 20190526192315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,15 @@ ActiveRecord::Schema.define(version: 20190526181428) do
     t.integer  "status",     default: 0, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "game_id"
+    t.index ["game_id"], name: "index_frames_on_game_id", using: :btree
     t.index ["user_id"], name: "index_frames_on_user_id", using: :btree
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string   "key",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "scores", force: :cascade do |t|
@@ -66,6 +74,7 @@ ActiveRecord::Schema.define(version: 20190526181428) do
     t.index ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
   end
 
+  add_foreign_key "frames", "games"
   add_foreign_key "frames", "users"
   add_foreign_key "scores", "frames"
   add_foreign_key "sequences", "frames"
