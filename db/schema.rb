@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190526192315) do
+ActiveRecord::Schema.define(version: 20190609143849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,22 +21,27 @@ ActiveRecord::Schema.define(version: 20190526192315) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "game_id"
+    t.integer  "position"
     t.index ["game_id"], name: "index_frames_on_game_id", using: :btree
     t.index ["user_id"], name: "index_frames_on_user_id", using: :btree
   end
 
   create_table "games", force: :cascade do |t|
-    t.string   "key",        null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "key",                       null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "frames_count", default: 10, null: false
+    t.index ["key"], name: "index_games_on_key", unique: true, using: :btree
   end
 
   create_table "scores", force: :cascade do |t|
-    t.integer  "frame_id"
     t.integer  "value",      default: 0, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.index ["frame_id"], name: "index_scores_on_frame_id", using: :btree
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.index ["game_id"], name: "index_scores_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_scores_on_user_id", using: :btree
   end
 
   create_table "sequences", force: :cascade do |t|
@@ -61,7 +66,7 @@ ActiveRecord::Schema.define(version: 20190526192315) do
     t.integer  "score",          default: 0, null: false
     t.string   "presentation"
     t.integer  "frame_id"
-    t.integer  "attempt_number",             null: false
+    t.integer  "attempt_number", default: 1, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["frame_id"], name: "index_throws_on_frame_id", using: :btree
@@ -76,7 +81,8 @@ ActiveRecord::Schema.define(version: 20190526192315) do
 
   add_foreign_key "frames", "games"
   add_foreign_key "frames", "users"
-  add_foreign_key "scores", "frames"
+  add_foreign_key "scores", "games"
+  add_foreign_key "scores", "users"
   add_foreign_key "sequences", "frames"
   add_foreign_key "sequences_throws", "sequences"
   add_foreign_key "sequences_throws", "throws"
