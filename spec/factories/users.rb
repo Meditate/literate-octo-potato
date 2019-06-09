@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :user do
-    api_key { "test_key" }
+    sequence(:api_key) { |n| "test_api_key_#{n}" }
   end
 end
