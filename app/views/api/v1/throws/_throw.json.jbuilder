@@ -1,6 +1,6 @@
-json.extract! throw_object, :score, :attempt_number
+json.extract! throw_instance, :score, :attempt_number, :presentation
 
 json.frame do
-  json.partial! "api/v1/frames/frame", frame: throw_object.frame
+  json.partial! "api/v1/frames/frame", frame: throw_instance.frame
 end
 

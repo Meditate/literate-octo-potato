@@ -14,7 +14,7 @@ class Api::V1::ThrowsController::CreateFacade
   end
 
   def throw_instance
-    throw_creator.throw_instance
+    throw_creator.throw_instance.reload
   end
 
   private

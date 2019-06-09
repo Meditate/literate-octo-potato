@@ -1,1 +1,1 @@
-json.partial! "throw", throw_object: @facade.throw_instance
+json.partial! "throw", throw_instance: @facade.throw_instance

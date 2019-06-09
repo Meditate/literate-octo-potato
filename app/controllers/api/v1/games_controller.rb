@@ -6,4 +6,12 @@ class Api::V1::GamesController < ApplicationController
 
     render :create, status: :ok
   end
+
+  def current_state
+    @game = Game.find_by!(key: params[:game_key])
+
+    render :current_state, status: :ok
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: e }, status: :unprocessable_entity
+  end
 end
