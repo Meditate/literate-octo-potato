@@ -29,8 +29,6 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "rspec-rails"
-  gem "rubocop", require: false
-  gem "rubocop-rspec", require: false
 end
 
 group :test do
