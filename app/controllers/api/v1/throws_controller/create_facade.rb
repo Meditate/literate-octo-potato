@@ -27,7 +27,6 @@ class Api::V1::ThrowsController::CreateFacade
     @frame ||= Frame.find_by(frame_attributes) || handle_new_frame
   end
 
-
   def frame_attributes
     {
       user: @user,

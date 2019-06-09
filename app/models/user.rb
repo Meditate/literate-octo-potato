@@ -5,8 +5,6 @@ class User < ApplicationRecord
   validates :api_key, presence: true, uniqueness: true
 
   def can_have_a_frame?(game)
-    return false if frames.where(game: game).count >= game.frames_count
-
-    true
+    frames.where(game: game).count >= game.frames_count
   end
 end

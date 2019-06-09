@@ -7,7 +7,6 @@ class Api::V1::ThrowsController < ApplicationController
     @facade.save
 
     render :create, status: :ok
-
   rescue ArgumentError, ActiveRecord::RecordInvalid => e
     render json: { error: e }, status: :unprocessable_entity
   end
