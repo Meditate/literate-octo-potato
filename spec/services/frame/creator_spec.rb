@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.fdescribe Frame::Creator do
+RSpec.describe Frame::Creator do
   let(:creator) { described_class.new(params) }
   let!(:user) { create(:user) }
   let!(:game) { create(:game) }
@@ -27,7 +27,7 @@ RSpec.fdescribe Frame::Creator do
         end
 
         it "successfully creates a score" do
-          expect { subject }.to change{ game.score_for(user).count }.by(1)
+          expect { subject }.to change{ user.scores.count }.by(1)
         end
       end
 
@@ -39,7 +39,7 @@ RSpec.fdescribe Frame::Creator do
         end
 
         it "doesn't creates a score" do
-          expect { subject }.to_not change{ game.score_for(user).count }
+          expect { subject }.to_not change{ user.scores.count }
         end
       end
     end
